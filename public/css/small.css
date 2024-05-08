@@ -1,0 +1,39 @@
+@media screen and (max-width: 1100px) {
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .info-box {
+        top: 60px;
+        left: 20px;
+        width: 140px;
+        font-size: 15px;
+        line-height: normal;
+    }
+
+    .info-box p,
+    .info-box h4 {
+        margin: 2px;
+    }
+}
+
+@media screen and (max-width:550px) {
+    #wrapper {
+        margin: 0px;
+    }
+
+    .siteName a {
+        font-size: 25px;
+    }
+
+    header a {
+        font-size: 20px;
+    }
+
+
+    .upgrade {
+        margin: 3px auto;
+        width: 80%;
+    }
+}
