@@ -4,6 +4,10 @@
         flex-direction: column;
     }
 
+    #wrapper {
+        margin: 5%;
+    }
+
     .info-box {
         top: 60px;
         left: 20px;
@@ -31,9 +35,16 @@
         font-size: 20px;
     }
 
-
     .upgrade {
         margin: 3px auto;
         width: 80%;
+    }
+
+    nav ul li {
+        font-size: 17px;
+    }
+
+    h2 {
+        font-size: 20px;
     }
 }
