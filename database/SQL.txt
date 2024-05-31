@@ -229,6 +229,14 @@ VALUES   (
     'White',
     5
   );
+--STEP THREE--
+DELETE FROM account
+WHERE account_email = 'tony@starkent.com';
+
+--STEP FOUR--
+UPDATE inventory
+SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
+WHERE inv_ID = 10;
 
   --STEP FIVE--
 SELECT 
