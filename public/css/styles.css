@@ -58,26 +58,30 @@ header a:hover {
   font-size: 40px;
 }
 
-nav {
+.nav {
   margin: 5px;
   background-color: black;
 }
 
-nav ul li:hover {
-  color: rgb(202, 237, 255);
+.nav li {
+  list-style-type: none;
 }
 
-nav ul {
+.nav {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   padding: 10px;
 }
 
-nav ul li {
+.nav li a {
   list-style-type: none;
   color: white;
   font-size: 20px;
+}
+
+.nav li a:hover {
+  color: rgb(202, 237, 255);
 }
 
 .hero {

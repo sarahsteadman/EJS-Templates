@@ -30,7 +30,7 @@ app.set("layout", "./layouts/layout")
  * Routes
  *************************/
 app.use(static)
-// app.get("/", utilities.handleErrors(baseController.buildHome))
+app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // app.get("/", function (req, res) {
 //   res.render("index", { title: "Home" })
