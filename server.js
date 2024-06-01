@@ -14,6 +14,11 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/index")
 
+// THERE IS NO FAVICON
+app.get('/favicon.ico', (req, res) => {
+  res.status(404).end();
+});
+
 /* ***********************
  * Routes
  *************************/
@@ -25,7 +30,11 @@ app.set("layout", "./layouts/layout")
  * Routes
  *************************/
 app.use(static)
-app.get("/", utilities.handleErrors(baseController.buildHome))
+// app.get("/", utilities.handleErrors(baseController.buildHome))
+
+app.get("/", function (req, res) {
+  res.render("index", { title: "Home" })
+})
 
 // Inventory routes
 app.use("/inv", inventoryRoute)

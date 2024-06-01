@@ -17,6 +17,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
         nav,
         grid,
     })
+
 }
 
 
