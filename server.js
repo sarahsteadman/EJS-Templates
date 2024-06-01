@@ -32,9 +32,9 @@ app.set("layout", "./layouts/layout")
 app.use(static)
 // app.get("/", utilities.handleErrors(baseController.buildHome))
 
-app.get("/", function (req, res) {
-  res.render("index", { title: "Home" })
-})
+// app.get("/", function (req, res) {
+//   res.render("index", { title: "Home" })
+// })
 
 // Inventory routes
 app.use("/inv", inventoryRoute)
