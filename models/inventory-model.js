@@ -26,4 +26,19 @@ async function getInventoryByClassificationId(classification_id) {
         console.error("getclassificationsbyid error " + error)
     }
 }
-module.exports = { getClassifications, getInventoryByClassificationId }
+
+async function getInventoryById(id) {
+    try {
+        const data = await pool.query(
+            `SELECT * FROM public.inventory WHERE inv_id = $1`, [id]
+        )
+
+        if (data.inv_year == undefined) {
+            throw new Error("Sorry, no matching vehicles could be found.");
+        }
+        return data.rows
+    } catch (error) {
+        console.error("getInventoryById error " + error)
+    }
+}
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById }

@@ -33,7 +33,7 @@ Util.buildClassificationGrid = async function (data) {
     if (data.length > 0) {
         grid = '<ul id="inv-display">'
         data.forEach(vehicle => {
-            grid += '<li>'
+            grid += '<li class="vehicles">'
             grid += '<a href="../../inv/detail/' + vehicle.inv_id
                 + '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model
                 + 'details"><img src="' + vehicle.inv_thumbnail
@@ -56,6 +56,29 @@ Util.buildClassificationGrid = async function (data) {
         grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
     return grid
+}
+
+// Builds the HTML for the Car Details page
+Util.buildCarDetails = async function (data) {
+    let details
+    console.log(data.inv_year)
+    if (data.inv_year != undefined) {
+        details = '<div class="vehicle-display">'
+        details += `<h3>${data.inv_year} ${data.inv_make} ${data.inv_model}</h3>`
+        details += `<img src="${data.inv_image}" alt=${data.inv_year} ${data.inv_make} ${data.inv_model}">`
+        details += `<section class="detail-section">`
+        details += `<h2 class="details">${data.inv_make} ${data.inv_model} Details</h2>`
+        details += `<p class="details"><b>Price: $${parseFloat(data.inv_price).toLocaleString('en-US')}</b></p>`
+        details += `<p class="details"><b>Description:</b> ${data.inv_description}</p>`
+        details += `<p class="details"><b>Color:</b> ${data.inv_color}</p>`
+        details += `<p class="details"><b>Miles:</b> ${data.inv_miles.toLocaleString('en-US')}</p>`
+        details += `</section >`
+
+        details += '</div>'
+    } else {
+        details += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+    return details
 }
 
 /* ****************************************

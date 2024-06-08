@@ -30,7 +30,7 @@ body {
   padding: 20px;
 }
 
-main {
+.index-main {
   display: grid;
   grid-template-areas: "a a" "c d";
   grid-template-columns: 1fr 1fr;
@@ -158,4 +158,28 @@ h3 {
 
 .upgrade img {
   height: 80px;
+}
+
+.vehicles {
+  list-style: none;
+}
+
+/* Details Page */
+.vehicle-display {
+  display: grid;
+  grid-template-areas: "a a" " b c";
+}
+
+.vehicle-display h3 {
+  grid-area: a;
+}
+
+.vehicle-display img,
+.detail-section {
+  width: 80%;
+}
+
+.detail-section>*:nth-child(Odd) {
+  background-color: #d8d8d8;
+  padding: 5px;
 }
