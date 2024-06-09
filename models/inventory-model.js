@@ -31,10 +31,11 @@ async function getInventoryById(id) {
     try {
         const data = await pool.query(
             `SELECT * FROM public.inventory WHERE inv_id = $1`, [id]
-        )
-
-        if (data.inv_year == undefined) {
+        );
+        console.log("Query Result:", data);
+        if (data.rows.length === 0) {
             throw new Error("Sorry, no matching vehicles could be found.");
+            return false;
         }
         return data.rows
     } catch (error) {
