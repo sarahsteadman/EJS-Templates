@@ -65,7 +65,7 @@ Util.buildCarDetails = async function (data) {
     if (data.inv_year != undefined) {
         details = '<div class="vehicle-display">'
         details += `<h3>${data.inv_year} ${data.inv_make} ${data.inv_model}</h3>`
-        details += `<img src="${data.inv_image}" alt=${data.inv_year} ${data.inv_make} ${data.inv_model}">`
+        details += `<img src="${data.inv_image}" alt="${data.inv_year} ${data.inv_make} ${data.inv_model}">`
         details += `<section class="detail-section">`
         details += `<h2 class="details">${data.inv_make} ${data.inv_model} Details</h2>`
         details += `<p class="details"><b>Price: $${parseFloat(data.inv_price).toLocaleString('en-US')}</b></p>`
