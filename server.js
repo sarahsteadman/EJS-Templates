@@ -11,8 +11,11 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accounts")
 const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/index")
+const session = require("express-session")
+const pool = require('./database/')
 
 // THERE IS NO FAVICON
 app.get('/favicon.ico', (req, res) => {
@@ -20,11 +23,40 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 /* ***********************
+ * Middleware
+ * ************************/
+console.log("session starts");
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+console.log("session ends.")
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Middleware to parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
+/* ***********************
  * Routes
  *************************/
 app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout")
+
 
 /* ***********************
  * Routes
@@ -38,12 +70,13 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 
 // Inventory routes
 app.use("/inv", inventoryRoute)
+// Account routes
+app.use("/account", accountRoute)
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({ status: 404, message: 'Sorry, we appear to have lost that page.' })
 })
-
 
 /* ***********************
 * Express Error Handler
