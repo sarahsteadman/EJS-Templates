@@ -30,6 +30,7 @@ if (process.env.NODE_ENV == "development") {
         },
     }
 } else {
+    console.log("pool being created");
     pool = new Pool({
         connectionString: process.env.DATABASE_URL,
     })

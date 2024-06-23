@@ -263,7 +263,10 @@ form label {
 
 form input[type="text"],
 form input[type="email"],
-form input[type="password"] {
+form input[type="password"],
+form input[type="number"],
+form textarea,
+form select {
   width: 100%;
   padding: 10px;
   margin: 2px auto 20px auto;
@@ -304,10 +307,16 @@ li {
 }
 
 input:required:invalid,
-input:focus:invalid {
+input:focus:invalid,
+select:required:invalid,
+select:focus:invalid,
+textarea:required:invalid,
+textarea:focus:invalid {
   border-left: 4px solid red;
 }
 
+textarea:required:valid,
+select:required:valid,
 input:required:valid {
   border-left: 4px solid rgb(0, 255, 4);
 }

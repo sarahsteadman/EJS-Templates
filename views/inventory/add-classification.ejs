@@ -1,0 +1,15 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } %>
+        <p>
+            <%- messages() %>
+        </p>
+
+        <form action="/inv/addClassification" method="post">
+            <span>No spaces or special characters are allowed in the Classification name.</span>
+            <label for="classification">Classification:</label>
+            <input type="text" id="classification" name="classification" pattern="[a-zA-Z0-9]+$" required>
+            <input type="submit" value="Submit">
+        </form>

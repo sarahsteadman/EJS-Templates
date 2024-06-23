@@ -36,17 +36,17 @@ async function buildRegistration(req, res, next) {
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
-    console.log("quack1");
+
     let nav = await utilities.getNav()
     const { account_firstname, account_lastname, account_email, account_password } = req.body
-    console.log("quack2");
+
     const regResult = await accountModel.registerAccount(
         account_firstname,
         account_lastname,
         account_email,
         account_password
     )
-    console.log("quack3");
+
     if (regResult) {
         req.flash(
             "notice",
@@ -65,7 +65,7 @@ async function registerAccount(req, res) {
             errors: null
         })
     }
-    console.log("quack4");
+
 }
 
 
