@@ -9,10 +9,20 @@ const utilities = require("../utilities/index")
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 router.get("/detail/:id", utilities.handleErrors(invController.buildDetailsById));
 
-router.get('/management', utilities.handleErrors(invController.buildManagement));
-router.get('/addClassification', utilities.handleErrors(invController.buildAddClassification));
-router.post('/addClassification', utilities.handleErrors(invController.addClassification));
-router.get('/addInventory', utilities.handleErrors(invController.buildAddInventory));
-router.post('/addInventory', utilities.handleErrors(invController.addInventory));
+router.get('/management', invController.buildManagement);
+router.get('/addClassification', invController.buildAddClassification);
+router.post('/addClassification', invController.addClassification);
+router.get('/addInventory', invController.buildAddInventory);
+router.post('/addInventory', invController.addInventory);
+
+// // Route to build inventory by classification view
+// router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
+// router.get("/detail/:id", utilities.handleErrors(invController.buildDetailsById));
+
+// router.get('/management', utilities.handleErrors(invController.buildManagement));
+// router.get('/addClassification', utilities.handleErrors(invController.buildAddClassification));
+// router.post('/addClassification', utilities.handleErrors(invController.addClassification));
+// router.get('/addInventory', utilities.handleErrors(invController.buildAddInventory));
+// router.post('/addInventory', utilities.handleErrors(invController.addInventory));
 
 module.exports = router;

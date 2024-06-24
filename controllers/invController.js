@@ -64,7 +64,8 @@ invCont.buildAddClassification = async function (req, res, next) {
             title: "Add Classification",
             message: "",
             nav,
-            errors: null
+            errors: null,
+            formData: {}
         })
     } catch (error) {
         next(error)
@@ -81,7 +82,8 @@ invCont.buildAddInventory = async function (req, res, next) {
             message: "",
             nav,
             classifications,
-            errors: null
+            errors: null,
+            formData: {}
         })
     } catch (error) {
         next(error)
@@ -115,7 +117,8 @@ invCont.addClassification = async function (req, res) {
         res.status(500).render("inv/addClassification", {
             title: "Add Classification",
             nav,
-            errors: null
+            errors: null,
+            formData: classification
         });
     }
 }
@@ -124,12 +127,13 @@ invCont.addClassification = async function (req, res) {
 *  Add a new Inventory
 * *************************************** */
 invCont.addInventory = async function (req, res) {
+    console.log("Beep");
     let nav = await utilities.getNav()
     let classifications = await utilities.buildClassificationList()
     const addedInventory = { inv_make, inv_model, inv_year, inv_description, inv_thumbnail, inv_image, inv_price, inv_miles, inv_color, classification_id } = req.body
 
     const inventory = await invModel.addInventory(addedInventory)
-
+    console.log("Bop");
     if (inventory) {
         req.flash(
             "notice",
@@ -147,9 +151,11 @@ invCont.addInventory = async function (req, res) {
             title: "Add Inventory",
             nav,
             classifications,
-            errors: null
+            errors: null,
+            formData: addedInventory
         })
     }
+    console.log("Boop");
 
 }
 
