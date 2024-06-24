@@ -9,6 +9,18 @@ const invCont = {}
 invCont.buildByClassificationId = async function (req, res, next) {
     const classification_id = req.params.classificationId
     const data = await invModel.getInventoryByClassificationId(classification_id)
+
+    if (data.length === 0) {
+        let nav = await utilities.getNav()
+        res.render("./inventory/classification", {
+            title: "No vehicles found",
+            nav,
+            grid: "<p>No cars were found in this category</p>",
+            errors: null
+        })
+        return
+    }
+
     const grid = await utilities.buildClassificationGrid(data)
     let nav = await utilities.getNav()
     const className = data[0].classification_name
@@ -40,7 +52,6 @@ invCont.buildDetailsById = async function (req, res, next) {
     }
 }
 
-//Build Add Classification view
 invCont.buildManagement = async function (req, res, next) {
     try {
         let nav = await utilities.getNav()
@@ -104,7 +115,8 @@ invCont.addClassification = async function (req, res) {
         return res.status(400).render("inventory/addClassification", {
             title: "Add Classification",
             nav,
-            errors: null
+            errors: null,
+            formData: {}
         });
     }
 
@@ -143,7 +155,8 @@ invCont.addInventory = async function (req, res) {
             title: "Add Inventory",
             nav,
             classifications,
-            errors: null
+            errors: null,
+            formData: {}
         })
     } else {
         req.flash("notice", "Sorry, the inventory item could not be added.")
