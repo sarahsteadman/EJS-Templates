@@ -16,6 +16,7 @@ const baseController = require("./controllers/baseController")
 const utilities = require("./utilities/index")
 const session = require("express-session")
 const pool = require('./database/')
+const cookieParser = require("cookie-parser")
 
 // THERE IS NO FAVICON
 app.get('/favicon.ico', (req, res) => {
@@ -50,6 +51,8 @@ app.use(express.json());
 
 // Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser())
 /* ***********************
  * Routes
  *************************/
