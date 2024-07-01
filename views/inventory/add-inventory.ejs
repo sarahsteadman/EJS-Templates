@@ -32,8 +32,8 @@
                 value="<%= locals.inv_year %>"><br>
 
             <label for="inv_description">Description:</label>
-            <textarea id="inv_description" name="inv_description" maxlength="500" required
-                value="<%= locals.inv_description %>"></textarea><br>
+            <textarea id="inv_description" name="inv_description" maxlength="500"
+                required><%= locals.inv_description %></textarea><br>
 
             <label for="inv_image">Image:</label>
             <input type="text" id="inv_image" name="inv_image" required
@@ -44,21 +44,19 @@
                 value="<%= locals.inv_thumbnail || 'images/vehicles/no-image-tn.png' %>"><br>
 
             <label for="inv_price">Price:</label>
-            <input type="number" id="inv_price" name="inv_price" step="0.01" maxlength="50" required
+            <input type="number" id="inv_price" name="inv_price" step="0.01" required
                 value="<%= locals.inv_price %>"><br>
 
             <label for="inv_miles">Miles:</label>
-            <input type="number" id="inv_miles" name="inv_miles" maxlength="50" required
-                value="<%= locals.inv_miles %>"><br>
+            <input type="number" id="inv_miles" name="inv_miles" required value="<%= locals.inv_miles %>"><br>
 
             <label for="inv_color">Color:</label>
             <input type="text" id="inv_color" name="inv_color" maxlength="30" pattern="[A-Za-z0-9\s\-']+"
                 title="Color can contain letters, numbers, spaces, hyphens, and apostrophes only." required
                 value="<%= locals.inv_color %>"><br>
 
-            <label for="classification_id">Classification:</label>
+            <label for="classificationList">Classification:</label>
             <%- classifications %>
 
-
-                <input type="submit"></input>
+                <input type="submit">
         </form>
