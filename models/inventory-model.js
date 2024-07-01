@@ -33,7 +33,7 @@ async function getInventoryById(id) {
         const data = await pool.query(
             `SELECT * FROM public.inventory WHERE inv_id = $1`, [id]
         );
-        console.log("Query Result:", data);
+        // console.log("Query Result:", data);
         if (data.rows.length === 0) {
             throw new Error("Sorry, no matching vehicles could be found.");
             return false;
@@ -90,5 +90,6 @@ async function addInventory(inventory) {
         return null;
     }
 }
+
 
 module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, addClassification, addInventory }

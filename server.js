@@ -26,7 +26,6 @@ app.get('/favicon.ico', (req, res) => {
 /* ***********************
  * Middleware
  * ************************/
-console.log("session starts");
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
     createTableIfMissing: true,
@@ -37,7 +36,6 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
-console.log("session ends.")
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -60,6 +58,8 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout")
 
+// Token check
+app.use(utilities.checkJWTToken)
 
 /* ***********************
  * Routes

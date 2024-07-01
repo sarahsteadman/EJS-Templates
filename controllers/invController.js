@@ -55,11 +55,13 @@ invCont.buildDetailsById = async function (req, res, next) {
 invCont.buildManagement = async function (req, res, next) {
     try {
         let nav = await utilities.getNav()
+        const classificationSelect = await utilities.buildClassificationList()
         req.flash("notice", "")
         res.render("./inventory/management", {
             title: "Management",
             message: "",
             nav,
+            classification: classificationSelect,
             errors: null
         })
     } catch (error) {
@@ -107,7 +109,7 @@ invCont.buildAddInventory = async function (req, res, next) {
 invCont.addClassification = async function (req, res) {
     let nav = await utilities.getNav()
     const { classification } = req.body
-    console.log("called");
+
 
     const characters = /^[a-zA-Z0-9]+$/;
     if (!characters.test(classification)) {
@@ -139,13 +141,11 @@ invCont.addClassification = async function (req, res) {
 *  Add a new Inventory
 * *************************************** */
 invCont.addInventory = async function (req, res) {
-    console.log("Beep");
     let nav = await utilities.getNav()
     let classifications = await utilities.buildClassificationList()
     const addedInventory = { inv_make, inv_model, inv_year, inv_description, inv_thumbnail, inv_image, inv_price, inv_miles, inv_color, classification_id } = req.body
 
     const inventory = await invModel.addInventory(addedInventory)
-    console.log("Bop");
     if (inventory) {
         req.flash(
             "notice",
@@ -155,7 +155,6 @@ invCont.addInventory = async function (req, res) {
             title: "Add Inventory",
             nav,
             classifications,
-            errors: null,
             formData: {}
         })
     } else {
@@ -168,8 +167,84 @@ invCont.addInventory = async function (req, res) {
             formData: addedInventory
         })
     }
-    console.log("Boop");
 
 }
+
+/* ****************************************
+*  Update Inventory
+* *************************************** */
+invCont.updateInventory = async function (req, res) {
+    let nav = await utilities.getNav()
+    let classifications = await utilities.buildClassificationList()
+    const addedInventory = { inv_make, inv_model, inv_year, inv_description, inv_thumbnail, inv_image, inv_price, inv_miles, inv_color, classification_id } = req.body
+
+    const inventory = await invModel.updateInventoryInventory(addedInventory)
+    if (inventory) {
+        req.flash(
+            "notice",
+            `Inventory item added`
+        )
+        res.status(201).render("inventory/edit-inventory", {
+            title: "Add Inventory",
+            nav,
+            classifications,
+            errors: null,
+            formData: {}
+        })
+    } else {
+        req.flash("notice", "Sorry, the inventory item could not be edited.")
+        res.status(501).render("inventory/add-inventory", {
+            title: "Add Inventory",
+            nav,
+            classifications,
+            errors: null,
+            formData: addedInventory
+        })
+    }
+
+}
+
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+    const classification_id = parseInt(req.params.classification_id)
+    const invData = await invModel.getInventoryByClassificationId(classification_id)
+    if (invData[0].inv_id) {
+        return res.json(invData)
+    } else {
+        next(new Error("No data returned"))
+    }
+}
+
+/* ***************************
+ *  Create the view for editing inventory
+ * ************************** */
+invCont.editInventory = async (req, res, next) => {
+    const id = parseInt(req.params.id)
+    let nav = await utilities.getNav()
+    let carArray = await invModel.getInventoryById(id);
+    let car = carArray[0];
+    let name = `Edit ${car.inv_make} ${car.inv_model}`
+    let classifications = await utilities.buildClassificationList(car.classification_id)
+
+    res.render("./inventory/edit-inventory", {
+        title: name,
+        nav,
+        classifications: classifications,
+        errors: null,
+        inv_id: car.inv_id,
+        inv_make: car.inv_make,
+        inv_model: car.inv_model,
+        inv_year: car.inv_year,
+        inv_description: car.inv_description,
+        inv_image: car.inv_image,
+        inv_thumbnail: car.inv_thumbnail,
+        inv_price: car.inv_price,
+        inv_miles: car.inv_miles,
+        inv_color: car.inv_color
+    })
+}
+
 
 module.exports = invCont

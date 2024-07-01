@@ -88,12 +88,9 @@ async function registerAccount(req, res) {
  *  Process login request
  * ************************************ */
 async function accountLogin(req, res) {
-    console.log("accountlogin called")
     let nav = await utilities.getNav()
     const { account_email, account_password } = req.body
-    console.log("accountModel started")
     const accountData = await accountModel.getAccountByEmail(account_email)
-    console.log("accountModel completed")
     if (!accountData) {
         req.flash("notice", "Please check your credentials and try again.")
         res.status(400).render("account/login", {
@@ -105,23 +102,17 @@ async function accountLogin(req, res) {
         return
     }
     try {
-        console.log("try block started")
         if (await bcrypt.compare(account_password, accountData.account_password)) {
-            console.log("1")
             delete accountData.account_password
-            console.log("2")
             const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
-            console.log("3")
             if (process.env.NODE_ENV === 'development') {
                 res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
             } else {
                 res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
             }
-            console.log("4")
             return res.redirect("/account/")
         }
     } catch (error) {
-        console.log("5")
         console.error("Error caught in catch block:", error);
         return new Error('Access Forbidden')
     }
