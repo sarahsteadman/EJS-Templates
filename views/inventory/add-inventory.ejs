@@ -37,11 +37,11 @@
 
             <label for="inv_image">Image:</label>
             <input type="text" id="inv_image" name="inv_image" required
-                value="<%= locals.inv_image || 'images/vehicles/no-image.png' %>"><br>
+                value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>"><br>
 
             <label for="inv_thumbnail">Thumbnail:</label>
             <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
-                value="<%= locals.inv_thumbnail || 'images/vehicles/no-image-tn.png' %>"><br>
+                value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>"><br>
 
             <label for="inv_price">Price:</label>
             <input type="number" id="inv_price" name="inv_price" step="0.01" required
@@ -58,5 +58,5 @@
             <label for="classificationList">Classification:</label>
             <%- classifications %>
 
-                <input type="submit">
+                <input type="submit" value="Add Vehicle">
         </form>

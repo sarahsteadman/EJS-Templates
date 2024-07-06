@@ -6,7 +6,7 @@ const utilities = require("../utilities/index")
 // Static Routes
 // Set up "public" folder / subfolders for static files
 router.use(express.static("public"));
-// router.get("/", baseController.buildHome);
+router.get("/logout", utilities.logout, baseController.buildHome);
 router.get("/error", utilities.handleErrors(baseController.itsAnError));
 router.use("/css", express.static(__dirname + "public/css"));
 router.use("/js", express.static(__dirname + "public/js"));

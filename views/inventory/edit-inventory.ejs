@@ -16,7 +16,7 @@
                     <% } %>
         </p>
 
-        <form action="/inv/update" method="POST">
+        <form action="/inv/update" method="POST" id="updateForm">
             <label for="inv_make">Make:</label>
             <input type="text" id="inv_make" name="inv_make" maxlength="50" pattern="[A-Za-z0-9\s\-']+"
                 title="Make can contain letters, numbers, spaces, hyphens, and apostrophes only."
@@ -36,10 +36,10 @@
                 required><%= inv_description %></textarea><br>
 
             <label for="inv_image">Image:</label>
-            <input type="text" id="inv_image" name="inv_image" value="images/vehicles/no-image.png" required><br>
+            <input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png" required><br>
 
             <label for="inv_thumbnail">Thumbnail:</label>
-            <input type="text" id="inv_thumbnail" name="inv_thumbnail" value="images/vehicles/no-image-tn.png"
+            <input type="text" id="inv_thumbnail" name="inv_thumbnail" value="/images/vehicles/no-image-tn.png"
                 required><br>
 
             <label for="inv_price">Price:</label>
@@ -54,11 +54,12 @@
                 title="Color can contain letters, numbers, spaces, hyphens, and apostrophes only."
                 value="<%= inv_color %>" required><br>
 
-            <label for="classification_id">Classification:</label>
+            <label for="classificationList">Classification:</label>
             <%- classifications %>
 
 
-                <input type="submit">Update Vehicle</input>
+                <input type="submit" value="Update Vehicle" id="submitBtn" disabled>
                 <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
                     <% } %>>
         </form>
+        <script src="../../js/inv-update.js"></script>

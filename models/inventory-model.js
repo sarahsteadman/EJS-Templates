@@ -91,5 +91,43 @@ async function addInventory(inventory) {
     }
 }
 
+async function updateInventory(inventory) {
+    try {
+        console.log(inventory)
+        const sql =
+            "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *"
+        const result = await pool.query(sql, [
+            inventory.inv_make,
+            inventory.inv_model,
+            inventory.inv_description,
+            inventory.inv_image,
+            inventory.inv_thumbnail,
+            inventory.inv_price,
+            inventory.inv_year,
+            inventory.inv_miles,
+            inventory.inv_color,
+            inventory.classification_id,
+            inventory.inv_id
+        ]);
+        return result.rows[0];
+    } catch (error) {
+        console.error(error.message);
+        return null;
+    }
+}
+async function deleteInventory(inventory) {
+    try {
+        console.log(inventory)
+        const sql = 'DELETE FROM inventory WHERE inv_id = $1';
+        const data = await pool.query(sql, [
+            inventory.inv_id
+        ]);
+        return data;
+    } catch (error) {
+        console.error(error.message);
+        return null;
+    }
+}
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, addClassification, addInventory }
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById, addClassification, addInventory, updateInventory, deleteInventory }

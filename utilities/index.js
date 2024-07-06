@@ -1,3 +1,4 @@
+const { error } = require("console")
 const invModel = require("../models/inventory-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
@@ -134,6 +135,40 @@ Util.checkLogin = (req, res, next) => {
     } else {
         req.flash("notice", "Please log in.")
         return res.redirect("/account/login")
+    }
+}
+
+/* ****************************************
+ *  Check Account Type
+ * ************************************ */
+Util.checkAccountType = (req, res, next) => {
+    if (res.locals.accountData) {
+        console.log(res.locals.accountData)
+        if (res.locals.accountData == 'Admin' || 'Employee') {
+            next()
+        }
+        else {
+            throw new Error("Please log in to an Admin or Employee account to view this page");
+        }
+    }
+
+    else {
+        throw new Error("Please log in to an Admin or Employee account to view this page");
+    }
+}
+
+// log out deletes logged in jwt cookie
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.logout = (req, res, next) => {
+    if (req.cookies.jwt) {
+        res.clearCookie("jwt");
+        res.locals.loggedin = 0;
+        req.flash("notice", "You have logged out successfully.");
+        next();
+    } else {
+        next();
     }
 }
 

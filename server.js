@@ -50,7 +50,14 @@ app.use(express.json());
 // Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }));
 
+//Middleware to Parse Cookies!
 app.use(cookieParser())
+
+// HERE ARE LOCALS! DO NOT LOSE THEM!!!
+app.use((req, res, next) => {
+  res.locals = res.locals || {};
+  next();
+});
 /* ***********************
  * Routes
  *************************/

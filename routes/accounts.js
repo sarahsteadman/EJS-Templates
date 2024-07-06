@@ -10,8 +10,12 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin));
 router.post("/login", regValidate.loginRules(), regValidate.checkLoginData, utilities.handleErrors(accountController.accountLogin))
 
 router.get("/register", utilities.handleErrors(accountController.buildRegistration));
-router.post("/register", regValidate.registationRules(), regValidate.checkRegData, utilities.handleErrors(accountController.registerAccount)
+router.post("/register", regValidate.registrationRules(), regValidate.checkUpdateData, utilities.handleErrors(accountController.registerAccount)
 )
+
+router.get("/update", utilities.handleErrors(accountController.buildUpdateAccount));
+router.post("/update", regValidate.updateAccountRules(), regValidate.checkUpdateData, utilities.handleErrors(accountController.updateAccount))
+router.post("/update/password", regValidate.updatePassword(), utilities.handleErrors(accountController.updatePassword))
 
 
 module.exports = router;

@@ -36,8 +36,8 @@ validate.inventoryRules = () => {
         body("inv_year")
             .trim()
             .notEmpty()
-            .isInt({ min: 2100 })
-            .withMessage(`Please provide a year greater or equal to 2100`),
+            .isInt({ min: 1800 })
+            .withMessage(`Please provide a year greater or equal to 1800`),
         body("inv_miles")
             .trim()
             .notEmpty()
