@@ -173,6 +173,12 @@ async function updateAccount(req, res) {
     )
 
     if (updateResult) {
+        res.locals.accountData = {
+            account_firstname,
+            account_lastname,
+            account_email,
+            account_id
+        }
         req.flash(
             "notice",
             `Your account information has been updated`

@@ -15,7 +15,7 @@
                     </ul>
                     <% } %>
         </p>
-        <p>Confirm Deletion - The delete is permanent.</p>
+        <p class="delete-msg">Confirm Deletion - The delete is permanent.</p>
         <form action="/inv/delete" method="POST" id="deleteForm">
             <label for="inv_make">Make:</label>
             <input type="text" id="inv_make" name="inv_make" maxlength="50" pattern="[A-Za-z0-9\s\-']+"

@@ -375,3 +375,7 @@ input:required:valid {
 .account-a {
   margin: 5px;
 }
+
+.delete-msg {
+  text-align: center;
+}
