@@ -1,0 +1,51 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } %>
+
+        <p><%- messages() %></p>
+
+
+        <div id="inbox">
+            <div>
+                <a href="/messages/newMessage" class="black-links">New Message</a>
+                <a href="/messages/sentMessages" class="black-links">Sent Messages</a>
+            </div>
+            <div id="messageList">
+                <% if (inboxMessages && inboxMessages.length> 0) { %>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Read</th>
+                                <th>Sender</th>
+                                <th>Subject</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% inboxMessages.forEach(function(message) { %>
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" <%=message.isRead ? 'checked' : '' %> disabled>
+                                    </td>
+                                    <td><a href="/messages/message/<%= message.message_id %>">
+                                            <%= message.account_firstname %>
+                                                <%= message.account_lastname %>
+                                        </a></td>
+                                    <td><a href="/messages/message/<%= message.message_id %>">
+                                            <%= message.message_subject %>
+                                        </a></td>
+                                    <td><a href="/messages/message/<%= message.message_id %>">
+                                            <%= new Date(message.message_created).toLocaleDateString() %>
+                                        </a></td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+
+                    <% } else { %>
+                        <p>No Incoming Messages</p>
+                        <% } %>
+            </div>
+        </div>

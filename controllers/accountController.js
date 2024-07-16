@@ -1,5 +1,6 @@
 const utilities = require("../utilities/index")
 const accountModel = require("../models/account-model")
+const messageModel = require("../models/message-model")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 const bcrypt = require('bcryptjs');
@@ -116,7 +117,6 @@ async function accountLogin(req, res) {
         res.status(400).render("account/login", {
             title: "Login",
             nav,
-
             errors: null,
             account_email,
         })

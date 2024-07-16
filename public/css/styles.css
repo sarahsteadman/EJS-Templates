@@ -321,7 +321,8 @@ input:required:valid {
   border-left: 4px solid rgb(0, 255, 4);
 }
 
-#inv-management {
+#inv-management,
+#inbox {
   padding: 20px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   display: flex;
@@ -340,35 +341,40 @@ input:required:valid {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-#inv-management a {
+#inv-management a,
+.black-links {
   padding: 10px 15px;
   background-color: black;
   color: white;
   text-decoration: none;
 }
 
-#inv-management a:hover {
+#inv-management a:hover,
+.black-links:hover {
   background-color: #0056b3;
 }
 
-
-#inv-management table {
-  width: 100%;
-  margin-top: 20px;
+#messageList {
+  width: 90%
 }
 
-#inv-management table th,
-#inv-management table td {
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
   padding: 10px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-#inv-management table th {
+table th {
   background-color: #f2f2f2;
-  color: black;
 }
 
-#inv-management table tr:nth-child(even) {
+table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
@@ -378,4 +384,76 @@ input:required:valid {
 
 .delete-msg {
   text-align: center;
+}
+
+.new-message-form {
+  max-width: 800px;
+  width: 100%;
+}
+
+.new-message-form input[type="text"],
+.new-message-form select,
+#message_body {
+  width: calc(100% - 22px);
+  font-size: 17px;
+}
+
+#message_body {
+  height: 300px;
+}
+
+#message_body::placeholder,
+.new-message-form input[type="text"]::placeholder {
+  font-family: Arial, sans-serif;
+}
+
+table th:nth-child(1),
+table td:nth-child(1) {
+  width: 5%;
+  /* Read checkbox */
+}
+
+table th:nth-child(2),
+table td:nth-child(2) {
+  width: 25%;
+  /* Sender */
+}
+
+table th:nth-child(3),
+table td:nth-child(3) {
+  width: 50%;
+  /* Subject */
+}
+
+table th:nth-child(4),
+table td:nth-child(4) {
+  width: 20%;
+  /* Date */
+}
+
+.message-details {
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.message-options {
+  margin: 40px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.inbox-btn {
+  width: 85px;
+  text-align: center;
+  margin: auto;
+  display: block;
+}
+
+.message-details p:nth-child(1),
+.message-details p:nth-child(2) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 10px;
+  /* Optional: add some space below the text */
+  margin-bottom: 10px;
+  /* Optional: add space between border and next element */
 }

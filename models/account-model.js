@@ -84,6 +84,7 @@ async function getAccountById(id) {
  *   Check for existing email
  * ********************* */
 async function checkExistingEmail(account_email) {
+    console.log("email " + account_email)
     try {
         const sql = "SELECT * FROM account WHERE account_email = $1"
         const email = await pool.query(sql, [account_email])
@@ -93,4 +94,23 @@ async function checkExistingEmail(account_email) {
     }
 }
 
-module.exports = { registerAccount, getAccountByEmail, checkExistingEmail, updateAccount, updatePassword }
+/* **********************
+ *   return id for email
+ * ********************* */
+async function getId(account_email) {
+    console.log("email " + account_email);
+    try {
+        const sql = "SELECT account_id FROM account WHERE account_email = $1";
+        const result = await pool.query(sql, [account_email]);
+        if (result.rowCount > 0) {
+            return parseInt(result.rows[0].account_id, 10);
+        } else {
+            throw new Error("Account not found");
+        }
+    } catch (error) {
+        return error.message;
+    }
+}
+
+
+module.exports = { registerAccount, getAccountByEmail, checkExistingEmail, updateAccount, updatePassword, getId }

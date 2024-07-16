@@ -64,7 +64,6 @@ Util.buildClassificationGrid = async function (data) {
 // Builds the HTML for the Car Details page
 Util.buildCarDetails = async function (data) {
     let details
-    console.log(data.inv_year)
     if (data.inv_year != undefined) {
         details = '<div class="vehicle-display">'
         details += `<h3>${data.inv_year} ${data.inv_make} ${data.inv_model}</h3>`
@@ -119,6 +118,10 @@ Util.checkJWTToken = (req, res, next) => {
                 }
                 res.locals.accountData = accountData
                 res.locals.loggedin = 1
+
+                if (accountData.account_id < 4) {
+                    res.locals.message = 1
+                }
                 next()
             })
     } else {
@@ -135,6 +138,25 @@ Util.checkLogin = (req, res, next) => {
     } else {
         req.flash("notice", "Please log in.")
         return res.redirect("/account/login")
+    }
+}
+
+/* ****************************************
+ *  Check account
+ * ************************************ */
+Util.checkAccount = (req, res, next) => {
+    console.log("check accounts called")
+    if (!res.locals.loggedin) {
+        req.flash("notice", "Please log in.");
+        return res.redirect("/account/login");
+    }
+    console.log("you are logged in")
+    console.log(res.locals.accountData.account_id)
+    if (res.locals.accountData.account_id < 4) {
+        next()
+    } else {
+        req.flash("notice", "Sorry, you do not have access to this feature.")
+        return res.redirect("/")
     }
 }
 

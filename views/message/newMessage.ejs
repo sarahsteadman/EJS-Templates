@@ -1,0 +1,36 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } %>
+        <p>
+            <%- messages() %>
+                <% if (errors) { %>
+                    <ul class="notice">
+                        <% errors.array().forEach(error=> { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
+        </p>
+
+        <form action="/messages/newMessage" method="post" class="new-message-form">
+            <label for="message_to">Recipient:</label>
+            <select id="message_to" name="message_to" required>
+                <% recipients.forEach(recipient=> { %>
+                    <option value="<%= recipient.account_id %>">
+                        <%= recipient.account_firstname %>
+                            <%= recipient.account_lastname %>
+                    </option>
+                    <% }) %>
+            </select>
+            <label for="message_subject">Subject:</label>
+            <input type="text" id="message_subject" name="message_subject" required
+                value="<%= locals.message_subject %>" placeholder="Subject">
+            <textarea id="message_body" name="message_body" required value="<%= locals.message_body %>"
+                placeholder="Enter message here"></textarea>
+
+            <input type="submit" value="Submit">
+        </form>

@@ -1,0 +1,36 @@
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } %>
+        <p>
+            <%- messages() %>
+                <% if (errors) { %>
+                    <ul class="notice">
+                        <% errors.array().forEach(error=> { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                    <% } %>
+        </p>
+        <div class="message-details">
+            <p>
+                <%= messageDetails.message_created %>
+            </p>
+            <p>
+                <%= messageDetails.account_firstname %>
+                    <%= messageDetails.account_lastname %>
+            </p>
+            <p>
+                <%= messageDetails.message_body %>
+            </p>
+        </div>
+        <div class="message-options">
+            <a href="/" class="black-links">Reply</a>
+            <a href="/" class="black-links">Archive</a>
+            <a href="/" class="black-links">Mark As Unread</a>
+            <a href="/" class="black-links">Delete</a>
+        </div>
+        <a href="/messages/" class="black-links inbox-btn">Inbox</a>
