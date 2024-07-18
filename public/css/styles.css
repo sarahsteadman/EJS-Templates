@@ -372,6 +372,7 @@ table td {
 
 table th {
   background-color: #f2f2f2;
+  font-family: Arial;
 }
 
 table tr:nth-child(even) {

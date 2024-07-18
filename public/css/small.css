@@ -65,6 +65,36 @@
         font-size: 20px;
     }
 
+    .messageWOptions {
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+    }
 
+    .messageWOptions>* {
+        margin: 10px auto;
+        font-size: 15px;
+    }
 
+    .inbox-links,
+    .account-links {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .inbox-links a,
+    .account-links a {
+        margin: 5px;
+        text-align: center;
+    }
+
+    td a {
+        font-size: 15px;
+    }
+
+    .new-message-form input[type="text"],
+    .new-message-form select,
+    #message_body {
+        font-size: 15px;
+    }
 }
