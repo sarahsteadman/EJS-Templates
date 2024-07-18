@@ -24,8 +24,6 @@ model.getMessageById = async function (id) {
             WHERE m.message_id = $1`,
             [id]
         );
-        console.log("getMessagebyId id:" + id);
-        console.log("getMessagebyId result:", result.rows[0]);
         return result.rows[0];
     } catch (error) {
         console.error("Error fetching message by ID:", error.message);
@@ -37,7 +35,6 @@ model.getMessageById = async function (id) {
 * Return messages where user id is the recipient
 * *****************************/
 model.getInbox = async (userId) => {
-    console.log("userId " + userId);
     try {
         const result = await pool.query(
             `SELECT
@@ -52,11 +49,10 @@ model.getInbox = async (userId) => {
             FROM message m
             JOIN account a ON m.message_from = a.account_id
             WHERE m.message_to = $1
-            ORDER BY m.message_created DESC
-`,
+            AND m.message_archived = false
+            ORDER BY m.message_created DESC`,
             [userId]
         );
-        console.log("database queried")
         if (result.rows.length == 0) {
             return []
         }
@@ -69,11 +65,44 @@ model.getInbox = async (userId) => {
 }
 
 /* *****************************
+* Return archived messages where user id is the recipient
+* *****************************/
+model.getArchives = async (userId) => {
+    try {
+        const result = await pool.query(
+            `SELECT
+                m.message_id,
+                m.message_from,
+                m.message_subject,
+                m.message_created,
+                a.account_firstname,
+                a.account_lastname,
+                m.message_read,
+                m.message_archived
+            FROM message m
+            JOIN account a ON m.message_from = a.account_id
+            WHERE m.message_to = $1
+            AND m.message_archived = true
+            ORDER BY m.message_created DESC`,
+            [userId]
+        );
+        if (result.rows.length == 0) {
+            return []
+        }
+
+        return result.rows
+    } catch (error) {
+        console.error("Error fetching archives:", error.message);
+        throw new Error("Messages could not be retrieved")
+    }
+}
+
+/* *****************************
 * Returns a count of how many messages are in the inbox
 * *****************************/
 model.getInboxCount = async (userId) => {
     try {
-        const sql = "SELECT COUNT(*) FROM message WHERE message_to = $1";
+        const sql = "SELECT COUNT(*) FROM message WHERE message_to = $1 AND message_archived = false AND message_read = false";
         const result = await pool.query(sql, [userId]);
 
         return result.rows[0].count;
@@ -83,28 +112,11 @@ model.getInboxCount = async (userId) => {
     }
 };
 
-
-
-/* *****************************
-* Return messages where user id is the recipient
-* *****************************/
-// model.getInbox = async (userId) => {
-//     try {
-//         let result = ('SELECT * FROM messages WHERE receiver_id = ? ORDER BY timestamp DESC',
-//             [userId]);
-//         return result.rows[0]
-//     } catch (error) {
-//         console.error("Error fetching messages by UserId:", error.message);
-//         throw new Error("Messages could not be retrieved")
-//     }
-// }
 /* *****************************
 *   Save Message to database
 * *************************** */
 model.saveMessage = async function (message_subject, message_body, message_to, message_from, message_created) {
     try {
-        console.log(message_created);
-
         const sql = "INSERT INTO message (message_subject, message_body, message_to, message_from, message_created) VALUES ($1, $2, $3, $4, $5) RETURNING *";
         return await pool.query(sql, [message_subject, message_body, message_to, message_from, message_created]);
     } catch (error) {
@@ -128,6 +140,54 @@ model.getRecipients = async function () {
     }
 }
 
+model.deleteMessage = async function (id) {
+    try {
+        const sql = 'DELETE FROM message WHERE message_id = $1';
+        const data = await pool.query(sql, [
+            id
+        ]);
+        return data;
+    } catch (error) {
+        console.error(error.message);
+        return null;
+    }
+}
+
+model.archiveMessage = async function (id) {
+
+    try {
+        const sql = `UPDATE message
+                     SET message_archived = true
+                     WHERE message_id = $1;`;
+        const data = await pool.query(sql, [
+            id
+        ]);
+
+        return data;
+    } catch (error) {
+
+        console.error(error.message);
+        return null;
+    }
+}
+
+model.readMessage = async function (id) {
+
+    try {
+        const sql = `UPDATE message
+                     SET message_read = true
+                     WHERE message_id = $1;`;
+        const data = await pool.query(sql, [
+            id
+        ]);
+
+        return data;
+    } catch (error) {
+
+        console.error(error.message);
+        return null;
+    }
+}
 
 
 module.exports = model

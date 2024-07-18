@@ -14,7 +14,12 @@
                     <% } %>
                         <a href="/account/update/" class="account-a">Update Account Information</a>
             </div>
-            <% if (locals.accountData.account_id < 4) { %>
-                <a title="View Messages" href="/messages"> Inbox &#x2709; </a>
-                <% } %>
+            <% if (userId < 4) { %>
+                <% if (locals.messageCount) { %>
+                    <p class="message-count">
+                        <%= locals.messageCount %> Unread Messages
+                    </p>
+                    <% } %>
+                        <a title="View Messages" href="/messages"> Inbox &#x2709; </a>
+                        <% } %>
         </div>

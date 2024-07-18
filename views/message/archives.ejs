@@ -9,11 +9,10 @@
 
         <div id="inbox">
             <div>
-                <a href="/messages/newMessage" class="black-links">New Message</a>
-                <a href="/messages/archives" class="black-links">Archived Messages</a>
+                <a href="/messages/" class="black-links">Inbox</a>
             </div>
             <div id="messageList">
-                <% if (inboxMessages && inboxMessages.length> 0) { %>
+                <% if (archiveMessages && archiveMessages.length> 0) { %>
                     <table>
                         <thead>
                             <tr>
@@ -24,10 +23,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% inboxMessages.forEach(function(message) { %>
+                            <% archiveMessages.forEach(function(message) { %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" <%=message.message_read ? 'checked' : '' %> disabled>
+                                        <input type="checkbox" <%=message.isRead ? 'checked' : '' %> disabled>
                                     </td>
                                     <td><a href="/messages/message/<%= message.message_id %>">
                                             <%= message.account_firstname %>
@@ -45,7 +44,7 @@
                     </table>
 
                     <% } else { %>
-                        <p>No Incoming Messages</p>
+                        <p>No Archived Messages</p>
                         <% } %>
             </div>
         </div>

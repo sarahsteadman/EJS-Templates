@@ -86,7 +86,6 @@ invCont.buildAddClassification = async function (req, res, next) {
             title: "Add Classification",
             message: "",
             nav,
-
             errors: null,
             formData: {}
         })
@@ -105,7 +104,6 @@ invCont.buildAddInventory = async function (req, res, next) {
             title: "Add Inventory",
             message: "",
             nav,
-
             classifications,
             errors: null,
             formData: {}
@@ -130,7 +128,6 @@ invCont.addClassification = async function (req, res) {
         return res.status(400).render("inventory/addClassification", {
             title: "Add Classification",
             nav,
-
             errors: null,
             formData: classification
         });
@@ -145,7 +142,6 @@ invCont.addClassification = async function (req, res) {
         res.status(500).render("inv/addClassification", {
             title: "Add Classification",
             nav,
-
             errors: null,
             formData: classification
         });
@@ -170,7 +166,6 @@ invCont.addInventory = async function (req, res) {
         res.status(201).render("inventory/add-inventory", {
             title: "Add Inventory",
             nav,
-
             classifications,
             formData: {}
         })
@@ -179,7 +174,6 @@ invCont.addInventory = async function (req, res) {
         res.status(501).render("inventory/add-inventory", {
             title: "Add Inventory",
             nav,
-
             classifications,
             errors: null,
             formData: addedInventory

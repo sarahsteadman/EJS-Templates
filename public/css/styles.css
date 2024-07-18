@@ -384,6 +384,7 @@ table tr:nth-child(even) {
 
 .delete-msg {
   text-align: center;
+  color: red;
 }
 
 .new-message-form {
@@ -437,23 +438,51 @@ table td:nth-child(4) {
 }
 
 .message-options {
-  margin: 40px;
+  margin: 0px;
+  margin-bottom: auto;
   display: flex;
-  justify-content: space-evenly;
+  flex-direction: column;
+  width: 180px;
+  align-self: start;
+}
+
+.message-options a {
+  border-bottom: 1px solid rgb(92, 92, 92);
+  width: 100%;
+}
+
+.messageWOptions {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 20px;
 }
 
 .inbox-btn {
   width: 85px;
   text-align: center;
-  margin: auto;
+  margin: 20px auto;
   display: block;
 }
 
-.message-details p:nth-child(1),
-.message-details p:nth-child(2) {
+.archived-notice {
+  margin: 0px;
+  text-align: end;
+  align-self: start;
+}
+
+.date,
+.subject,
+.name {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 10px;
   /* Optional: add some space below the text */
   margin-bottom: 10px;
   /* Optional: add space between border and next element */
+}
+
+#deleteForm {
+  box-shadow: none;
+  border: none;
+  display: flex;
+  justify-content: center;
 }

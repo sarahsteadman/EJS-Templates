@@ -97,7 +97,6 @@ async function registerAccount(req, res) {
         res.status(501).render("account/register", {
             title: "Registration",
             nav,
-
             errors: null
         })
     }
@@ -139,15 +138,23 @@ async function accountLogin(req, res) {
     }
 }
 
-async function accountManagement(req, res) {
+async function accountManagement(req, res, next) {
     try {
         let nav = await utilities.getNav()
+        let messageCount = null
+        let userId = res.locals.accountData.account_id
+
+        if (userId < 4) {
+            messageCount = await messageModel.getInboxCount(userId)
+        }
 
         req.flash("notice", "")
         res.render("./account/management", {
             title: "Account",
             message: "",
             nav,
+            messageCount,
+            userId,
             errors: null
         })
     } catch (error) {

@@ -145,13 +145,10 @@ Util.checkLogin = (req, res, next) => {
  *  Check account
  * ************************************ */
 Util.checkAccount = (req, res, next) => {
-    console.log("check accounts called")
     if (!res.locals.loggedin) {
         req.flash("notice", "Please log in.");
         return res.redirect("/account/login");
     }
-    console.log("you are logged in")
-    console.log(res.locals.accountData.account_id)
     if (res.locals.accountData.account_id < 4) {
         next()
     } else {
