@@ -26,7 +26,11 @@
                             <% archiveMessages.forEach(function(message) { %>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" <%=message.isRead ? 'checked' : '' %> disabled>
+                                        <% if (message.message_read) { %>
+                                            &#x2611;
+                                            <% } else { %>
+                                                &#x2610;
+                                                <% } %>
                                     </td>
                                     <td><a href="/messages/message/<%= message.message_id %>">
                                             <%= message.account_firstname %>

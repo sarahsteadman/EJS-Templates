@@ -385,7 +385,7 @@ table tr:nth-child(even) {
 
 .delete-msg {
   text-align: center;
-  color: red;
+  color: #A30000;
 }
 
 .new-message-form {
