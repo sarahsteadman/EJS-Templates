@@ -97,4 +97,29 @@
     #message_body {
         font-size: 15px;
     }
+
+    .cell,
+    .table-header {
+        flex: 1;
+    }
+
+    .message-read,
+    .table-header:nth-child(1) {
+        flex: 0 0 15%;
+    }
+
+    .message-sender,
+    .message-list .cell:nth-child(2) {
+        flex: 0 0 30%;
+    }
+
+    .message-subject,
+    .message-list .cell:nth-child(3) {
+        flex: 0 0 35%;
+    }
+
+    .message-date,
+    .message-list .cell:nth-child(4) {
+        flex: 0 0 20%;
+    }
 }
