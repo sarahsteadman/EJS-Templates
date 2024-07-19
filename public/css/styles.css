@@ -433,6 +433,14 @@ table td:nth-child(4) {
   /* Date */
 }
 
+.clickable-row {
+  cursor: pointer;
+}
+
+.clickable-row:hover {
+  background-color: #d5f7ff;
+}
+
 .message-details {
   padding: 20px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -476,9 +484,7 @@ table td:nth-child(4) {
 .name {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 10px;
-  /* Optional: add some space below the text */
   margin-bottom: 10px;
-  /* Optional: add space between border and next element */
 }
 
 #deleteForm {
@@ -486,4 +492,80 @@ table td:nth-child(4) {
   border: none;
   display: flex;
   justify-content: center;
+}
+
+.message-list {
+  list-style: none;
+  padding: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table-header,
+.row {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-header {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.cell {
+  flex: 1;
+  padding: 8px;
+  border-right: 1px solid #ddd;
+  text-decoration: none;
+  color: black;
+}
+
+.cell:last-child {
+  border-right: none;
+}
+
+.message-read,
+.message-sender,
+.message-subject,
+.message-date {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+}
+
+.row:hover {
+  background-color: rgba(147, 172, 241, 0.084);
+}
+
+.cell,
+.table-header {
+  flex: 1;
+}
+
+.message-read,
+.table-header:nth-child(1) {
+  flex: 0 0 10%;
+}
+
+.message-sender,
+.message-list .cell:nth-child(2) {
+  flex: 0 0 25%;
+}
+
+.message-subject,
+.message-list .cell:nth-child(3) {
+  flex: 0 0 35%;
+}
+
+.message-date,
+.message-list .cell:nth-child(4) {
+  flex: 0 0 30%;
 }

@@ -13,40 +13,39 @@
             </div>
             <div id="messageList">
                 <% if (archiveMessages && archiveMessages.length> 0) { %>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Read</th>
-                                <th>Sender</th>
-                                <th>Subject</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% archiveMessages.forEach(function(message) { %>
-                                <tr>
-                                    <td>
-                                        <% if (message.message_read) { %>
-                                            &#x2611;
-                                            <% } else { %>
-                                                &#x2610;
-                                                <% } %>
-                                    </td>
-                                    <td><a href="/messages/message/<%= message.message_id %>">
+                    <ul class="message-list">
+                        <li class="table-header">
+                            <div class="cell">Read</div>
+                            <div class="cell">Sender</div>
+                            <div class="cell">Subject</div>
+                            <div class="cell">Date</div>
+                        </li>
+                        <% archiveMessages.forEach(function(message) { %>
+                            <li class="clickable-item">
+                                <a href="/messages/message/<%= message.message_id %>" class="message-link">
+                                    <div class="row">
+                                        <div class="message-read cell">
+                                            <% if (message.message_read) { %>
+                                                &#x2611;
+                                                <% } else { %>
+                                                    &#x2610;
+                                                    <% } %>
+                                        </div>
+                                        <div class="message-sender cell">
                                             <%= message.account_firstname %>
                                                 <%= message.account_lastname %>
-                                        </a></td>
-                                    <td><a href="/messages/message/<%= message.message_id %>">
+                                        </div>
+                                        <div class="message-subject cell">
                                             <%= message.message_subject %>
-                                        </a></td>
-                                    <td><a href="/messages/message/<%= message.message_id %>">
+                                        </div>
+                                        <div class="message-date cell">
                                             <%= new Date(message.message_created).toLocaleDateString() %>
-                                        </a></td>
-                                </tr>
-                                <% }) %>
-                        </tbody>
-                    </table>
-
+                                        </div>
+                                    </div>
+                                </a>
+                            </li>
+                            <% }) %>
+                    </ul>
                     <% } else { %>
                         <p>No Archived Messages</p>
                         <% } %>
