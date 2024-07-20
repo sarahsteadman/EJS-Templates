@@ -398,6 +398,7 @@ table tr:nth-child(even) {
 #message_body {
   width: calc(100% - 22px);
   font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #message_body {
@@ -407,30 +408,6 @@ table tr:nth-child(even) {
 #message_body::placeholder,
 .new-message-form input[type="text"]::placeholder {
   font-family: Arial, sans-serif;
-}
-
-table th:nth-child(1),
-table td:nth-child(1) {
-  width: 5%;
-  /* Read checkbox */
-}
-
-table th:nth-child(2),
-table td:nth-child(2) {
-  width: 25%;
-  /* Sender */
-}
-
-table th:nth-child(3),
-table td:nth-child(3) {
-  width: 50%;
-  /* Subject */
-}
-
-table th:nth-child(4),
-table td:nth-child(4) {
-  width: 20%;
-  /* Date */
 }
 
 .clickable-row {
