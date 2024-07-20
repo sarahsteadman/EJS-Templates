@@ -49,14 +49,21 @@ messageCont.buildMessageDetails = async function (req, res, next) {
         let messageDetails = await messageModel.getMessageById(id)
         console.log(messageDetails)
 
-        req.flash("notice", "")
-        res.render("./message/messageDetails", {
-            title: messageDetails.message_subject,
-            message: "",
-            messageDetails,
-            nav,
-            errors: null
-        })
+        if (messageDetails.message_to == res.locals.accountData.account_id) {
+            req.flash("notice", "");
+            res.render("./message/messageDetails", {
+                title: messageDetails.message_subject,
+                message: "",
+                messageDetails,
+                nav,
+                errors: null
+            });
+        } else {
+            const error = new Error("You do not have access to this message");
+            error.status = 403;
+            next(error);
+        }
+
     } catch (error) {
         next(error)
     }
@@ -67,16 +74,21 @@ messageCont.buildDeleteMessage = async function (req, res, next) {
         let id = req.params.id;
         let nav = await utilities.getNav()
         let messageDetails = await messageModel.getMessageById(id)
-        console.log(messageDetails)
 
-        req.flash("notice", "")
-        res.render("./message/deleteMessage", {
-            title: `Delete ${messageDetails.message_subject}`,
-            message: "",
-            messageDetails,
-            nav,
-            errors: null
-        })
+        if (messageDetails.message_to == res.locals.accountData.account_id) {
+            req.flash("notice", "");
+            res.render("./message/deleteMessage", {
+                title: `Delete ${messageDetails.message_subject}`,
+                message: "",
+                messageDetails,
+                nav,
+                errors: null
+            })
+        } else {
+            const error = new Error("You do not have access to this message");
+            error.status = 403;
+            next(error);
+        }
     } catch (error) {
         next(error)
     }

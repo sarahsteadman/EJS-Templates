@@ -12,6 +12,7 @@ model.getMessageById = async function (id) {
             `SELECT 
                 m.message_id,
                 m.message_from,
+                m.message_to,
                 m.message_subject,
                 m.message_body,
                 m.message_created,
